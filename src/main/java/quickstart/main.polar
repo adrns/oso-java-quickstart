@@ -20,3 +20,12 @@ has_role(actor: User, role_name: String, repository: Repository) if
   role in actor.roles and
   role_name = role.name and
   repository = role.repository;
+
+type has_intersection(owned_labels, allowed_labels);
+
+has_intersection(owned_labels, allowed_labels) if
+  [first, *tail] = owned_labels and
+  (has_intersection(tail) or first in allowed_labels);
+
+has_intersection_expected(owned_labels, allowed_labels) if
+  label in owned_labels and label in allowed_labels;
